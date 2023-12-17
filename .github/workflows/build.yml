@@ -1,0 +1,26 @@
+name: build kernel
+
+on:
+  schedule:
+    - cron: "0 0 * * 2"
+    
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout script
+        uses: actions/checkout@v3
+      
+      - name: run build script
+        run: |
+          chmod +x build.sh
+          ./build.sh
+          
+      - name: upload kernel 
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-kernel
+          path: |
+            AnyKernel3/*
