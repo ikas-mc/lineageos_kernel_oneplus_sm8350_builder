@@ -42,6 +42,8 @@ cd $BASE_PATH
 #build
 echo ">build kernel"
 cd kernel
+# 20241001 remove WERROR
+sed -i 's/CONFIG_CC_WERROR=y/# CONFIG_CC_WERROR=y/g' arch/arm64/configs/vendor/lahaina-qgki_defconfig
 export PATH="$BASE_PATH/toolchain/bin:${PATH}"
 MAKE_ARGS="CC=clang O=out ARCH=arm64 LLVM=1 LLVM_IAS=1"
 make $MAKE_ARGS "vendor/lahaina-qgki_defconfig"
